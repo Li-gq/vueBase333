@@ -1,23 +1,45 @@
 <template>
-  <header class="header">
-      <h2 class="col-10 offset-1">请发表对Vue的评论</h2>
-  </header>
+  <div>
+      <input
+      v-on:keyup.13="handleItem"
+      v-model="itemName" 
+      type="text" 
+      class="form-control todoListInput" 
+      placeholder="请输入你的任务名称，按回车键确认" 
+      aria-describedby="todoListInput">
+  </div>
 </template>
 
 <script>
 export default {
     name:"",
+    data(){
+        return{
+            itemName:""
+        }
+    },
+    props: {
+        addItem:{
+            type: Function,
+            require: true
+        }
+    },
+    methods:{
+        handleItem(){
+            if(this.itemName.trim()){
+                this.addItem({id: Date.now(), content:this.itemName, isCompleted: false});
+            }else{
+                alert("请输入合法数据!");
+            }
+            this.itemName="";
+        }
+    }
 }
 </script>
 
-<style scoped>
-    .header{
-        height: 100px;
-        background-color: rgb(216, 215, 215);
-        margin-bottom: 20px;
-    }
-    .header h2{
-        height: 100px;
-        line-height: 100px;
+<style>
+    .todoListInput{
+        margin-bottom: 10px;
+        font-size: 20px;
     }
 </style>
