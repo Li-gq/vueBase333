@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+        <title>axios复习</title>
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            // axios是根据xhr和promise封装而来的一个http库（插件）
+            // http请求：包括普通http请求和ajax请求
+            // 今后我们用来发送ajax请求最多的工具就是axios
+            // 引入后暴露给我们的是一个函数
+            // axios是一个函数，也是函数对象
+            // axios有两种用法：函数用法和对象用法
+            // axios() 函数用法
+            // axios.get() 对象用法
+
+            // 请求方式：普通的http请求一般都是get和post
+            //           ajax请求：get,post,put,delete 
+            // 现在项目几乎都是前后端分离
+            // 前端：搭页面，做交互（请求获取数据展示渲染）
+            // 后端：数据库的存储操作，接口的书写，服务器的部署
+
+
+            // restful API 接口规范：是现在最流行的书写后端接口的一个规范
+            // 资源化
+            // 每个数据都会被看做是一个资源(商品),对于每个资源来说操作数据库有四种情况 增删改查
+            // 后端人员对数据库的每一个操作对应前端人员ajax的4个请求
+            // ajax请求：
+            //  get 查找数据资源
+            //  post 添加数据资源
+            //  put 修改数据资源
+            //  delete 删除数据资源
+
+            // axios掌握好不好，关键是三种参数分得清不清
+            // params参数 参数是路径的一部分，只能出现在路径中
+            // query参数 参数可以出现在url中，也可以出现在配置项中配置，query参数不属于路径的一部分
+                // url中：？key=value&key=value
+                // 配置项中：配置项的名称叫params
+            // body参数 
+                // 通常在post和put中，只能在配置对象中配置
+                // data这个配置项就是body请求体参数，这个数据必须是对象
+            axios({
+                // url: "https://api.github.com/search/repositories?q=v&sort=stars",
+                url: "https://api.github.com/search/repositories",
+                method: "GET",
+                params:{
+                    q:"v",
+                    sort:"stars"
+                }
+            }).then((response)=>{
+                console.log(response.data);
+            }).catch((error)=>{
+                console.log(error);
+            });
+            // 如果是对象写法，请求法师是对象的方法名，第一个参数都代表url（params和query都直接写在url中）
+            // 如果有请求体参数，post和put，第二个参数代表的就是请求体参数
+            // get和delete第二个参数不是请求体参数，代表一个配置对象
+            // axios.get('https://api.github.com/search/repositories?q=v&sort=stars');
+            // axios.post('https://api.github.com/search/repositories?q=v&sort=stars',{请求体数据})
+        </script>
+    </body>
+</html>
+
+    

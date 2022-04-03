@@ -1,12 +1,9 @@
 <template>
-  <div>
-      <input
-      v-on:keyup.13="handleItem"
-      v-model="itemName" 
-      type="text" 
-      class="form-control todoListInput" 
-      placeholder="请输入你的任务名称，按回车键确认" 
-      aria-describedby="todoListInput">
+  <div class="col-10  offset-1 header">
+      <h2>搜索GitHub用户</h2>
+      <input type="text" placeholder="请输入用户名字" class="form-control col-4" 
+      v-model="userName">
+      <button class="btn btn-primary" @click="search">搜索</button>
   </div>
 </template>
 
@@ -15,31 +12,33 @@ export default {
     name:"",
     data(){
         return{
-            itemName:""
-        }
-    },
-    props: {
-        addItem:{
-            type: Function,
-            require: true
-        }
+            userName:""
+        };
     },
     methods:{
-        handleItem(){
-            if(this.itemName.trim()){
-                this.addItem({id: Date.now(), content:this.itemName, isCompleted: false});
+        search(){
+            let {userName} = this;
+            if (userName.trim()){
+                this.$bus.$emit('searchAjax', userName);
             }else{
-                alert("请输入合法数据!");
+                alert("请输入合法字段！")
             }
-            this.itemName="";
+            this.userName = '';
         }
     }
 }
 </script>
 
-<style>
-    .todoListInput{
+<style scoped>
+    .header{
+        color: white;
+        background-color: rgb(176, 176, 176);
+        padding: 50px;
         margin-bottom: 10px;
-        font-size: 20px;
+    }
+    .header input{
+        display: inline-block;
+        vertical-align: bottom;
+        margin-right: 10px;
     }
 </style>
